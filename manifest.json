@@ -1,0 +1,23 @@
+{
+  "name": "Cookie Clicker",
+  "version": "1.0",
+  "description": "Extension for Cookie Clicker game",
+  "manifest_version": 3,
+  "author": "Adelia",
+  "permissions": [
+    "activeTab"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://orteil.dashnet.org/cookieclicker/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Cookie Clicker"
+  }
+}
