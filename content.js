@@ -1,9 +1,7 @@
 const BigCookie = document.querySelector("#bigCookie")
-const products = document.querySelectorAll(".product")
 const upgrades = document.querySelectorAll(".crate")
 const cookiesText = document.querySelector("#cookies").textContent.split(' ');
 const cookieCount = parseInt(cookiesText[0].replace(/,/g, ''));
-
 function CookieClicker() {
     BigCookie.click()
 }
@@ -37,6 +35,7 @@ function convertToNumber(text) {
 }
 
 function ProductsClicker() {
+    const products = document.querySelectorAll(".product")
     const cookiesText = document.querySelector("#cookies").textContent.split(' ');
     const cookieCount = parseInt(cookiesText[0].replace(/,/g, ''));
     for (let i = products.length - 1; i >= 0; i--) {
@@ -48,11 +47,14 @@ function ProductsClicker() {
            return
         } else if (productToClick.classList.contains("enabled")) {
             productToClick.click()
+
         }
     }
 }
 
 function UpgradeClicker() {
+const upgrades = document.querySelectorAll(".crate")
+
     const u = document.querySelector("#upgrade0")
     if (u != null) {
         u.click()
@@ -72,6 +74,7 @@ const observerConfig = { childList: true, subtree: true };
 observerNotes.observe(document.body, observerConfig);
 
 
+
 function ShimmerClicker() {
 const shimmer = document.querySelector(".shimmer")
     if(shimmer != null){
@@ -80,3 +83,19 @@ const shimmer = document.querySelector(".shimmer")
 }
 const observerShimmer = new MutationObserver(ShimmerClicker)
 observerShimmer.observe(document.body, observerConfig)
+
+
+
+chrome.runtime.onMessage.addListener(gotMessage);
+
+function gotMessage(message, sender, sendResponse) {
+    if (message.action === 'startClickCookie') {
+        CookieClicker();
+    }
+    if (message.action === 'startClickProducts') {
+        ProductsClicker()
+    }
+}
+
+
+
